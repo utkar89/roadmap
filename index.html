@@ -343,31 +343,61 @@
   // State change
   // ==================
   auth.onAuthStateChanged(user => {
-    if (user) {
-      const name = user.displayName || user.email;
-      const firstLetter = name.charAt(0).toUpperCase();
-      document.getElementById("userIconImg").classList.add("hidden");
-      const avatar = document.getElementById("userAvatar");
-      avatar.classList.remove("hidden");
-      avatar.textContent = firstLetter;
-      document.getElementById("overlayIconImg").classList.add("hidden");
-      const overlayAvatar = document.getElementById("overlayAvatar");
-      overlayAvatar.classList.remove("hidden");
-      overlayAvatar.textContent = firstLetter;
-      overlayName.textContent = "Hi " + name.toUpperCase();
-      authTabs.classList.add("hidden"); logoutBtn.classList.add("show");
-      document.querySelectorAll(".protected").forEach(el => el.classList.remove("locked"));
-    } else {
-      document.getElementById("userIconImg").classList.remove("hidden");
-      document.getElementById("userAvatar").classList.add("hidden");
-      document.getElementById("overlayIconImg").classList.remove("hidden");
-      document.getElementById("overlayAvatar").classList.add("hidden");
-      overlayName.textContent = "Hi USER";
-      authTabs.classList.remove("hidden"); logoutBtn.classList.remove("show");
-      loginTab.classList.add("active"); signupTab.classList.remove("active");
-      document.querySelectorAll(".protected").forEach(el => el.classList.add("locked"));
-    }
-  });
+  if (user) {
+    const name = user.displayName || user.email;
+    const firstLetter = name.charAt(0).toUpperCase();
+
+    // Avatar update
+    document.getElementById("userIconImg").classList.add("hidden");
+    const avatar = document.getElementById("userAvatar");
+    avatar.classList.remove("hidden");
+    avatar.textContent = firstLetter;
+
+    document.getElementById("overlayIconImg").classList.add("hidden");
+    const overlayAvatar = document.getElementById("overlayAvatar");
+    overlayAvatar.classList.remove("hidden");
+    overlayAvatar.textContent = firstLetter;
+
+    // Name update
+    overlayName.textContent = "Hi " + name.toUpperCase();
+
+    // ✅ Hide login/signup forms
+    loginForm.classList.add("hidden");
+    signupForm.classList.add("hidden");
+    authTabs.classList.add("hidden");
+
+    // ✅ Show logout button
+    logoutBtn.classList.add("show");
+
+    // Unlock protected links
+    document.querySelectorAll(".protected").forEach(el => el.classList.remove("locked"));
+  } else {
+    // Avatar reset
+    document.getElementById("userIconImg").classList.remove("hidden");
+    document.getElementById("userAvatar").classList.add("hidden");
+    document.getElementById("overlayIconImg").classList.remove("hidden");
+    document.getElementById("overlayAvatar").classList.add("hidden");
+
+    // Name reset
+    overlayName.textContent = "Hi USER";
+
+    // ✅ Show login form by default
+    loginForm.classList.remove("hidden");
+    signupForm.classList.add("hidden");
+    authTabs.classList.remove("hidden");
+
+    // ✅ Hide logout button
+    logoutBtn.classList.remove("show");
+
+    // Tabs reset
+    loginTab.classList.add("active");
+    signupTab.classList.remove("active");
+
+    // Lock protected links
+    document.querySelectorAll(".protected").forEach(el => el.classList.add("locked"));
+  }
+});
+
 
   // ==================
   // Protected links
