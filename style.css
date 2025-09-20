@@ -2,6 +2,7 @@ body {
   margin: 0;
   font-family: Arial, sans-serif;
   line-height: 1.6;
+  padding-top: 110px; /* header ki height jitni space */
 }
 
 /* Header */
@@ -12,16 +13,20 @@ body {
   padding: 1rem 2rem;
   background: #fff;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  position: sticky;
+  position: fixed;   /* ✅ hamesha top pe chipka rahega */
   top: 0;
-  z-index: 1000;
+  left: 0;
+  right: 0;
+  width: 100%;       /* ✅ desktop + mobile dono me fit */
+  z-index: 1100;     /* ✅ content se upar */
+  
+  padding-left: 10px;   /* logo ko thoda aur left side chipka do */
+  padding-right: 15px;
 }
 
-.logo {
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: #333;
-}
+
+
+
 
 /* Navigation */
 .nav-links ul {
@@ -294,7 +299,7 @@ body {
 .hero-content-utkarsh {
   position: relative;
   z-index: 1;
-  max-width: 800px;
+  max-width: 100%;
   padding: 20px;
 }
 
@@ -370,6 +375,10 @@ body {
   color: #000;
 }
 
+/* ✅ Mobile ke liye responsive fix */
+
+
+
 /* Icons row */
 .social-icons-utkarsh {
   display: flex;
@@ -389,14 +398,13 @@ body {
 }
 
 @media (max-width: 768px) {
-  .hero-content-utkarsh h1 {
-    font-size: 2rem;
-  }
-
-  .buttons-utkarsh {
-    flex-direction: column;
-  }
+  .hero-content-utkarsh h1 { font-size: 2rem; }
+  .hero-content-utkarsh h2 { font-size: 1.2rem; }
 }
+
+
+  
+
 
 .header-right {
   display: flex;
@@ -404,10 +412,6 @@ body {
   gap: 15px;
 }
 
-.dark-toggle {
-  cursor: pointer;
-  font-size: 20px;
-}
 
 .user-icon {
   width: 40px;
@@ -435,15 +439,6 @@ body {
   }
 }
 
-.dark-toggle {
-  cursor: pointer;
-  font-size: 20px;
-  transition: transform 0.2s;
-}
-
-.dark-toggle:hover {
-  transform: rotate(20deg);
-}
 
 .user-icon {
   width: 60px;
@@ -583,21 +578,48 @@ form button:hover {
 }
 
 .logo-img {
-  height: 70px;
-  /* apne logo ke size ke hisaab se */
+  height: 60px;       /* logo chhota aur clean */
   width: auto;
-  padding: -90px;
-  margin: -22px;
+  margin: 0;          /* extra negative margin hata diya */
+  padding: 0;         /* padding hata diya */
+  display: flex;
+  align-items: center; /* vertical center me */
 }
 
-.user-icon-img {
-  width: 40px;
-  height: 40px;
+/* 🔹 Default User Icon Image (user.png / profile photo) */
+.user-icon-img,
+#overlayIconImg {
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
   object-fit: cover;
   cursor: pointer;
   transition: transform 0.2s;
 }
+
+/* 🔹 Letter Avatar (U / A / etc.) */
+.user-icon,
+#overlayAvatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 16px;
+  cursor: pointer;
+  transition: transform 0.18s ease;
+ background: #666;   /* 👈 अब grey background रहेगा */
+  color: #fff;               /* letter black रहे */
+}
+
+
+.hidden {
+  display: none !important;
+}
+
+
 
 .user-icon-img:hover {
   transform: scale(1.1);
@@ -607,15 +629,6 @@ form button:hover {
   display: none;
 }
 
-.user-icon-img {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  object-fit: cover;
-  cursor: pointer;
-  transition: transform 0.2s;
-  margin: 0 auto;
-}
 
 .overlay-avatar-box {
   display: flex;
@@ -625,13 +638,7 @@ form button:hover {
   /* naam se gap ke liye */
 }
 
-.user-icon-img,
-.user-icon {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  object-fit: cover;
-}
+
 
 .overlay-backdrop {
   position: fixed;
@@ -843,4 +850,256 @@ html, body {
   max-width: 100%;
   overflow-x: hidden;
 }
+
+/* Default: hide mobile icons */
+.mobile-social-icons {
+  display: none;
+}
+
+/* Mobile layout */
+@media (max-width: 768px) {
+  /* Header ke social icons gayab */
+  .header .social-icons {
+    display: none;
+  }
+
+  /* Mobile wale visible ho jayein */
+  .mobile-social-icons {
+    display: flex;
+    justify-content: flex-end; /* right side chipak ke */
+    gap: 15px;
+    padding: 10px 15px;
+    background: transparent;
+    position: relative;
+    z-index: 10;
+  }
+
+  .mobile-social-icons img {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  /* Pop animation on click */
+  .mobile-social-icons img:active {
+    transform: scale(1.3);
+    box-shadow: 0 0 10px rgba(0, 255, 200, 0.7);
+    border-radius: 50%;
+  }
+}
+
+/* ---------------------------
+   Fire roadmap button - mobile only
+   --------------------------- */
+
+/* Base style for the SVG button (keeps it small and light on header) */
+
+
+/* mobile only: show button, ensure spacing next to user icon */
+.mobile-roadmap {
+  display: inline-block;
+  margin: 0 auto;   /* दोनों तरफ auto margin = center */
+  text-align: center;
+}
+
+/* responsive rules for small screens */
+@media (max-width: 768px) {
+  .mobile-roadmap {
+    display: inline-block;      /* show only on mobile */
+    margin: 0 auto;        /* gap between user icon and button */
+    vertical-align: middle;
+  }
+
+  /* If your header-right is flex, ensure proper alignment */
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    justify-content: center;
+  }
+.fire-btn {
+  display: inline-block;
+  padding: 4px 10px;      /* ✅ बहुत कम padding */
+  background: transparent;
+  border: 2px solid #ff4500;
+  border-radius: 8px;     /* ✅ corner भी छोटा */
+  text-decoration: none;
+  animation: flickerBorder 2s infinite;
+  cursor: pointer;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.fire-svg {
+  width: auto;
+  height: 20px;   /* ✅ Button chhota aur text center */
+  display: block;
+}
+
+.fire-svg text {
+  font-size: 16px;       /* ✅ Text thoda bada */
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  dominant-baseline: middle;
+}
+
+
+
+
+
+/* 🔥 Fire glow effect (continuous flicker) */
+@keyframes fireText {
+  0%   { filter: drop-shadow(0 0 5px #ff6a00) drop-shadow(0 0 10px #ff3c00); }
+  50%  { filter: drop-shadow(0 0 12px #ff9a00) drop-shadow(0 0 22px #ff4500); }
+  100% { filter: drop-shadow(0 0 18px #ffcc00) drop-shadow(0 0 32px #ff0000); }
+}
+
+/* 🔥 Border flicker */
+@keyframes flickerBorder {
+  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+    box-shadow: 0 0 6px #ff4500, 0 0 16px #ff6a00, 0 0 32px #ff0000;
+    border-color: #ff3c00;
+  }
+  20%, 24%, 55% {
+    box-shadow: none;
+    border-color: #ff0000;
+  }
+}
+
+/* ✨ Hover / Focus (desktop) */
+.fire-btn:hover .fire-svg text,
+.fire-btn:focus .fire-svg text {
+  transform: scale(1.1);
+  filter: drop-shadow(0 0 8px #ff6a00) drop-shadow(0 0 18px #ff3c00);
+}
+
+/* 📱 Tap effect (mobile) */
+.fire-btn:active .fire-svg text {
+  transform: scale(0.95);
+  filter: drop-shadow(0 0 5px #ff9a00);
+}
+}
+.fire-btn .fire-svg text {
+  font-size: 50px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  dominant-baseline: middle; /* safe alignment */
+}
+
+/* by default hidden */
+.mobile-only {
+  display: none;
+}
+
+/* सिर्फ mobile पर show */
+@media (max-width: 768px) {
+  .mobile-social-icons {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* left = button, right = icons */
+    gap: 10px;
+  }
+
+  .mobile-only {
+    display: inline-block;
+  }
+
+  .two-year-btn {
+    flex-shrink: 0;       /* size stable */
+    width: 140px;
+    height: 40px;
+  }
+
+  .two-year-btn .fire-svg {
+    height: 40px;
+    font-size: 16px;
+  }
+}
+.modal { position: fixed; inset: 0; display: none; z-index: 3000; font-family: inherit; }
+.modal.active { display: block; }
+
+.modal-backdrop {
+  position: absolute; inset: 0;
+  background: rgba(0,0,0,0.45);
+  opacity: 0; transition: opacity .22s ease;
+}
+.modal.active .modal-backdrop { opacity: 1; }
+
+.modal-panel {
+  position: absolute;
+  left: 50%; top: 50%;
+  transform: translate(-50%, -50%) scale(.98);
+  width: 90%; max-width: 420px;
+  background: #161618;
+  color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.6);
+  padding: 18px;
+  opacity: 0;
+  transition: transform .22s cubic-bezier(.2,.9,.2,1), opacity .22s;
+}
+.modal.active .modal-panel {
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
+}
+
+.modal-close {
+  position: absolute; right: 10px; top: 10px;
+  background: transparent; border: none; color: #fff;
+  font-size: 18px; cursor: pointer;
+}
+
+.modal-options { display: flex; flex-direction: column; gap: 10px; }
+
+.modal-option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: #fff;
+  background: linear-gradient(135deg, #2a2a72, #009ffd); /* 🌈 Blue gradient */
+  border-radius: 12px;
+  padding: 14px;
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.modal-option:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 8px 25px rgba(0, 159, 253, 0.4);
+}
+
+.modal-option .opt-left {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+}
+
+.opt-body strong {
+  font-size: 16px;
+  font-weight: 600;
+  color: #fffbf5; /* thoda bright text */
+}
+
+.opt-desc {
+  font-size: 13px;
+  color: #cfcfcf;
+}
+
+.modal-option:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.45);
+}
+
+.modal-option .opt-left {
+  width: 40px; height: 40px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px; background: rgba(0,0,0,0.25);
+  border-radius: 8px;
+}
+.opt-body { display:flex; flex-direction:column; }
+.opt-body strong { font-size: 15px; }
+.opt-desc { font-size: 12px; color: #cfcfcf; }
+.opt-right { margin-left: auto; color: #ffb27a; font-weight:700; }
+
 
