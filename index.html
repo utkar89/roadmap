@@ -7,8 +7,9 @@
   <title>Utkarsh Learning Challenge</title>
   <link rel="stylesheet" href="style.css">
   <!-- Firebase SDK -->
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+ <!-- Firebase (Compat Version - mobile safe) -->
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
 
   <!-- Font Awesome (icons ke liye) -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -190,10 +191,9 @@
   <!-- Backdrop overlay ke bahar hi rahe -->
   <div id="backdrop" class="overlay-backdrop"></div>
 
-
- <script>
+<script>
   // ==================
-  // Mobile menu toggle
+  // Menu toggle (mobile)
   // ==================
   function toggleMenu() {
     document.querySelector('.nav-links').classList.toggle('active');
@@ -280,7 +280,9 @@
   // ==================
   // Overlay open/close
   // ==================
-  function openOverlay() {
+  function openOverlay(e) {
+    e.preventDefault();
+    e.stopPropagation();
     userOverlay.classList.add("active");
     backdrop.classList.add("active");
   }
@@ -289,13 +291,13 @@
     backdrop.classList.remove("active");
   }
 
-  // userIconImg + userAvatar pe ek hi listener (click + touchstart)
-  document.querySelectorAll("#userIconImg, #userAvatar").forEach(el => {
-    ["click", "touchstart"].forEach(evt => {
-      el.addEventListener(evt, openOverlay);
-    });
+  // 🟢 Bind events for user icon (desktop + mobile safe)
+  ["click", "touchend", "pointerdown"].forEach(evt => {
+    document.getElementById("userIconImg").addEventListener(evt, openOverlay);
+    document.getElementById("userAvatar").addEventListener(evt, openOverlay);
   });
 
+  // Backdrop close
   backdrop.addEventListener("click", closeOverlay);
 
   // ==================
@@ -375,11 +377,12 @@
       if (!auth.currentUser) {
         e.preventDefault();
         alert("⚠️ Please login first to access this page!");
-        openOverlay();
+        openOverlay(e);
       }
     });
   });
 </script>
+
 
 
 </body>
