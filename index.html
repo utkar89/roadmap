@@ -24,7 +24,6 @@
       </a>
     </div>
     <div class="header-right">
-      <div class="dark-toggle" id="darkToggle">🌙</div>
 
       <!-- Default PNG icon -->
       <img src="user.png" alt="User Icon" id="userIconImg" class="user-icon-img">
@@ -32,6 +31,26 @@
       <!-- Letter Avatar (hidden initially) -->
       <div class="user-icon hidden" id="userAvatar">U</div>
     </div>
+    <!-- Mobile-only Fire Roadmap Button -->
+<a href="#" class="fire-btn mobile-roadmap roadmap-trigger" aria-label="Roadmap AI/ML">
+  <svg viewBox="0 0 500 80" class="fire-svg">
+    <defs>
+      <linearGradient id="fireGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" stop-color="#ff9a00"/>
+        <stop offset="25%" stop-color="#ff0000"/>
+        <stop offset="50%" stop-color="#ff6a00"/>
+        <stop offset="75%" stop-color="#ff3c00"/>
+        <stop offset="100%" stop-color="#ff0000"/>
+      </linearGradient>
+    </defs>
+    <text x="49%" y="50%" dy=".1em" text-anchor="middle" dominant-baseline="middle" fill="url(#fireGradient)" style="font-family: inherit;">
+       ROADMAP AI/ML
+    </text>
+  </svg>
+</a>
+
+
+    
 
 
 
@@ -40,17 +59,20 @@
 
     <nav class="nav-links">
       <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="daily.html" class="protected">Daily Notes</a></li>
+        <li><a href="index.html">HOME</a></li>
+        <li><a href="daily.html" class="protected">ROADMAP</a></li>
         <li><a href="roadmap.html" class="special protected">2 Years Challenge</a></li>
-        <li><a href="projects.html" class="protected">Projects</a></li>
-        <li><a href="notes.html" class="protected">Notes</a></li>
-        <li><a href="media.html" class="protected">Media</a></li>
-        <li><a href="about.html" class="protected">About</a></li>
+        <li><a href="projects.html" class="protected">PROJECTS</a></li>
+        <li><a href="notes.html" class="protected">NOTES</a></li>
+        <li><a href="media.html" class="protected">CONTECT US</a></li>
+        <li><a href="about.html" class="protected">ABOUT</a></li>
       </ul>
     </nav>
     <!-- Social Icons -->
     <div class="social-icons">
+      <!-- 2-Year Challenge button (only mobile) -->
+
+
       <a href="https://www.linkedin.com/in/utkarshverma89/" target="_blank">
         <img src="linkedin.png" alt="LinkedIn">
       </a>
@@ -67,6 +89,22 @@
     </div>
 
   </header>
+  <!-- Mobile-only Social Icons -->
+<div class="mobile-social-icons">
+  <a href="https://www.linkedin.com/in/utkarshverma89/" target="_blank">
+    <img src="linkedin.png" alt="LinkedIn">
+  </a>
+  <a href="https://github.com/utkar89" target="_blank">
+    <img src="github.png" alt="GitHub">
+  </a>
+  <a href="https://youtube.com/@lifewithlogic89" target="_blank">
+    <img src="youtube.png" alt="YouTube">
+  </a>
+  <a href="https://www.instagram.com/lifewith_logic" target="_blank">
+    <img src="instagram.png" alt="Instagram">
+  </a>
+</div>
+
   <section class="hero-utkarsh">
     <div class="hero-content-utkarsh">
       <!-- Glitch Typing Name -->
@@ -272,11 +310,7 @@
   // ==================
   // Dark mode
   // ==================
-  darkToggle.addEventListener("click", () => {
-    document.body.classList.toggle("dark");
-    darkToggle.textContent = document.body.classList.contains("dark") ? "☀️" : "🌙";
-  });
-
+  
   // ==================
   // Overlay open/close
   // ==================
@@ -411,10 +445,81 @@
       }
     });
   });
+  // Roadmap modal open/close
+// ==================
+// Roadmap modal open/close (safe + DOM loaded)
+// ==================
+document.addEventListener("DOMContentLoaded", () => {
+  const roadmapBtn = document.querySelector('.roadmap-trigger');
+  const roadmapModal = document.getElementById('roadmapModal');
+  const roadmapBackdrop = document.getElementById('roadmapBackdrop');
+  const roadmapClose = document.getElementById('roadmapClose');
+
+  if (roadmapBtn && roadmapModal) {
+    roadmapBtn.addEventListener('click', e => {
+      e.preventDefault();
+      roadmapModal.classList.add('active');
+    });
+  }
+
+  if (roadmapBackdrop && roadmapModal) {
+    roadmapBackdrop.addEventListener('click', () => roadmapModal.classList.remove('active'));
+  }
+
+  if (roadmapClose && roadmapModal) {
+    roadmapClose.addEventListener('click', () => roadmapModal.classList.remove('active'));
+  }
+});
+
+
 </script>
+<!-- Roadmap Options Modal -->
+<div id="roadmapModal" class="modal" role="dialog" aria-modal="true">
+  <div class="modal-backdrop" id="roadmapBackdrop"></div>
+  <div class="modal-panel" role="document">
+    <button class="modal-close" id="roadmapClose" aria-label="Close">✕</button>
+    <h3>Choose Roadmap</h3>
+    <p class="modal-sub">Select one option</p>
+
+    <div class="modal-options">
+  <!-- Option 1 -->
+  <a href="virtual-roadmap.html" class="modal-option">
+    <div class="opt-left">🔮</div>
+    <div class="opt-body">
+      <strong>Virtual Roadmap</strong>
+      <span class="opt-desc">Interactive experience</span>
+    </div>
+    <div class="opt-right">→</div>
+  </a>
+
+  <!-- Option 2 -->
+  <a href="roadmap.html" class="modal-option">
+    <div class="opt-left">📄</div>
+    <div class="opt-body">
+      <strong>Roadmap</strong>
+      <span class="opt-desc">Standard static page</span>
+    </div>
+    <div class="opt-right">→</div>
+  </a>
+
+  <!-- ✅ New Option 3 -->
+  <a href="2year.html" class="modal-option">
+    <div class="opt-left">⏳</div>
+    <div class="opt-body">
+      <strong>2-Year Challenge</strong>
+      <span class="opt-desc">Step by step journey</span>
+    </div>
+    <div class="opt-right">→</div>
+  </a>
+</div>
+
+  </div>
+</div>
+
 
 
 
 </body>
 
 </html>
+
