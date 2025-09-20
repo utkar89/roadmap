@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Utkarsh Learning Challenge</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+
+  <!-- Font Awesome (icons ke liye) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+</head>
+
+<body>
+  <header class="header">
+    <div class="logo">
+      <a href="index.html">
+        <img src="logo.png" alt="Website Logo" class="logo-img">
+      </a>
+    </div>
+    <div class="header-right">
+      <div class="dark-toggle" id="darkToggle">🌙</div>
+
+      <!-- Default PNG icon -->
+      <img src="user.png" alt="User Icon" id="userIconImg" class="user-icon-img">
+
+      <!-- Letter Avatar (hidden initially) -->
+      <div class="user-icon hidden" id="userAvatar">U</div>
+    </div>
+
+
+
+    <!-- Hamburger Icon for Mobile -->
+    <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+
+    <nav class="nav-links">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="daily.html" class="protected">Daily Notes</a></li>
+        <li><a href="roadmap.html" class="special protected">2 Years Challenge</a></li>
+        <li><a href="projects.html" class="protected">Projects</a></li>
+        <li><a href="notes.html" class="protected">Notes</a></li>
+        <li><a href="media.html" class="protected">Media</a></li>
+        <li><a href="about.html" class="protected">About</a></li>
+      </ul>
+    </nav>
+    <!-- Social Icons -->
+    <div class="social-icons">
+      <a href="https://www.linkedin.com/in/utkarshverma89/" target="_blank">
+        <img src="linkedin.png" alt="LinkedIn">
+      </a>
+      <a href="https://github.com/utkar89" target="_blank">
+        <img src="github.png" alt="GitHub">
+      </a>
+      <a href="https://youtube.com/@lifewithlogic89?si=Vb7KGYP-T8dBZ84Chttps://youtube.com/@lifewithlogic89?si=Vb7KGYP-T8dBZ84C"
+        target="_blank">
+        <img src="youtube.png" alt="YouTube">
+      </a>
+      <a href="https://www.instagram.com/lifewith_logic?igsh=MTA3emR4eWJoOWVtMw%3D%3D&utm_source=qr" target="_blank">
+        <img src="instagram.png" alt="Instagram">
+      </a>
+    </div>
+
+  </header>
+  <section class="hero-utkarsh">
+    <div class="hero-content-utkarsh">
+      <!-- Glitch Typing Name -->
+      <h1 id="glitchText-utkarsh"></h1>
+
+      <!-- Typing Effect Courses -->
+      <h2><span id="typing-utkarsh"></span><span style="color:#00ffcc">|</span></h2>
+
+      <!-- Buttons Row -->
+      <div class="buttons-utkarsh">
+        <a href="2year.html" class="protected">2-Year Learning Challenge</a>
+        <a href="daily.html" class="protected">Daily Notes</a>
+        <a href="projects.html" class="protected">Projects</a>
+        <a href="youtube.html" class="protected">YouTube Videos</a>
+      </div>
+
+
+
+      <!-- Social Icons Row -->
+      <div class="social-icons-utkarsh">
+        <a href="#"><i class="fab fa-github"></i></a>
+        <a href="#"><i class="fab fa-linkedin"></i></a>
+        <a href="#"><i class="fab fa-youtube"></i></a>
+        <a href="#"><i class="fas fa-user"></i></a>
+      </div>
+    </div>
+  </section>
+  <!-- ✅ sahi structure -->
+  <div class="user-overlay" id="userOverlay">
+    <!-- Avatar Area -->
+    <div class="overlay-avatar-box">
+      <img src="user.png" alt="User Icon" id="overlayIconImg" class="user-icon-img">
+      <div class="user-icon hidden" id="overlayAvatar">U</div>
+    </div>
+
+    <div class="user-name" id="overlayName">Hi USER</div>
+
+    <!-- Tabs -->
+    <div class="auth-tabs" id="authTabs">
+      <button id="loginTab" class="active">Login</button>
+      <button id="signupTab">Sign Up</button>
+    </div>
+
+    <!-- Login Form -->
+    <form id="loginForm">
+      <input type="email" id="loginEmail" placeholder="Email" required />
+      <input type="password" id="loginPassword" placeholder="Password" required />
+      <button type="submit">Login</button>
+      <small><a href="#" id="forgotPassword">Forgot Password?</a></small>
+    </form>
+
+    <!-- Signup Form -->
+    <form id="signupForm" class="hidden">
+      <input type="text" id="signupName" placeholder="Full Name" required />
+      <input type="email" id="signupEmail" placeholder="Email" required />
+      <input type="password" id="signupPassword" placeholder="Password" required />
+      <input type="password" id="signupConfirm" placeholder="Confirm Password" required />
+      <button type="submit">Sign Up</button>
+    </form>
+
+    <button id="logoutBtn" class="logout-btn">Logout</button>
+
+    <!-- ✅ Overlay options menu ab andar hai -->
+    <div class="overlay-menu">
+      <ul>
+       
+
+        <a class="menu-item protected" href="roadmap.html">
+          <i class="fa fa-bolt"></i>
+          <div>
+            <div class="menu-text">ROADMAP</div>
+            <div class="menu-sub">Achieve goal</div>
+          </div>
+        </a>
+
+        <a class="menu-item protected" href="contact.html">
+          <i class="fa fa-circle-notch spinning"></i>
+          <div>
+            <div class="menu-text">Contact Us</div>
+            <div class="menu-sub">Email</div>
+          </div>
+        </a>
+
+
+        <a class="menu-item protected" href="daily.html" target="_blank" rel="noopener">
+          <i class="fa fa-sticky-note"></i>
+          <div>
+            <div class="menu-text">Daily Notes</div>
+          </div>
+        </a>
+
+        <a class="menu-item protected" href="https://youtube.com/yourchannel" target="_blank" rel="noopener">
+          <i class="fa fa-youtube"></i>
+          <div>
+            <div class="menu-text">Daily YouTube Videos</div>
+          </div>
+        </a>
+
+        <a class="menu-item protected" href="roadmap.html" target="_blank" rel="noopener">
+          <i class="fa fa-calendar-check"></i>
+          <div>
+            <div class="menu-text">2 Year Challenge</div>
+          </div>
+        </a>
+      </ul>
+    </div>
+
+
+    <!-- ✅ Social links bhi overlay ke andar -->
+    <div class="overlay-social">
+      <a href="https://www.linkedin.com/in/yourprofile" target="_blank" rel="noopener"><i
+          class="fab fa-linkedin"></i><span>LinkedIn</span></a>
+      <a href="https://github.com/yourusername" target="_blank" rel="noopener"><i
+          class="fab fa-github"></i><span>GitHub</span></a>
+      <a href="https://youtube.com/yourchannel" target="_blank" rel="noopener"><i
+          class="fab fa-youtube"></i><span>YouTube</span></a>
+      <a href="https://instagram.com/yourhandle" target="_blank" rel="noopener"><i
+          class="fab fa-instagram"></i><span>Instagram</span></a>
+    </div>
+  </div> <!-- ✅ yaha overlay finally band ho rahi hai -->
+
+  <!-- Backdrop overlay ke bahar hi rahe -->
+  <div id="backdrop" class="overlay-backdrop"></div>
+
+
+  <script>
+
+    function toggleMenu() {
+      document.querySelector('.nav-links').classList.toggle('active');
+    }
+    // Random Color Generator
+    function getRandomColorUtkarsh() {
+      const colors = ["#ff4757", "#1e90ff", "#2ed573", "#ffa502", "#eccc68", "#00cec9", "#fd79a8"];
+      return colors[Math.floor(Math.random() * colors.length)];
+    }
+
+    // Glitch Typing Effect for Name
+    const textUtkarsh = "Hi, I'm Utkarsh";
+    const containerUtkarsh = document.getElementById("glitchText-utkarsh");
+    let nameIndexUtkarsh = 0;
+
+    function typeGlitchUtkarsh() {
+      if (nameIndexUtkarsh < textUtkarsh.length) {
+        const span = document.createElement("span");
+        span.textContent = textUtkarsh[nameIndexUtkarsh];
+        span.style.color = getRandomColorUtkarsh();
+        span.classList.add("glitch-letter-utkarsh");
+
+        containerUtkarsh.appendChild(span);
+
+        nameIndexUtkarsh++;
+        setTimeout(typeGlitchUtkarsh, 200);
+      } else {
+        // Jab pura text aa jaye to glitch animation remove karo
+        const letters = document.querySelectorAll(".glitch-letter-utkarsh");
+        letters.forEach((letter, i) => {
+          setTimeout(() => {
+            letter.style.animation = "none";
+          }, i * 100);
+        });
+      }
+    }
+    typeGlitchUtkarsh();
+
+    // Typing effect for courses
+    const textsUtkarsh = ["Learn Java", "Learn Python", "Learn Web Development", "Learn C++"];
+    let countUtkarsh = 0, indexUtkarsh = 0, currentTextUtkarsh = "", letterUtkarsh = "";
+
+    (function typeUtkarsh() {
+      if (countUtkarsh === textsUtkarsh.length) { countUtkarsh = 0; }
+      currentTextUtkarsh = textsUtkarsh[countUtkarsh];
+      letterUtkarsh = currentTextUtkarsh.slice(0, ++indexUtkarsh);
+
+      document.getElementById("typing-utkarsh").textContent = letterUtkarsh;
+
+      if (letterUtkarsh.length === currentTextUtkarsh.length) {
+        countUtkarsh++;
+        indexUtkarsh = 0;
+        setTimeout(typeUtkarsh, 1200);
+      } else {
+        setTimeout(typeUtkarsh, 100);
+      }
+    })();
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDgCULYRXS8Ef2sMQQGKhMbQ9kRrY3mD3A",
+      authDomain: "roadmap-8e7c4.firebaseapp.com",
+      projectId: "roadmap-8e7c4",
+      storageBucket: "roadmap-8e7c4.firebasestorage.app",
+      messagingSenderId: "823395412800",
+      appId: "1:823395412800:web:3b92bd90d62cd9a942e8a5",
+      measurementId: "G-MTQLRR2EDN"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+
+    const userAvatar = document.getElementById("userAvatar");
+    const overlayAvatar = document.getElementById("overlayAvatar");
+    const overlayName = document.getElementById("overlayName");
+    const userOverlay = document.getElementById("userOverlay");
+    const backdrop = document.getElementById("backdrop");
+    const loginForm = document.getElementById("loginForm");
+    const signupForm = document.getElementById("signupForm");
+    const logoutBtn = document.getElementById("logoutBtn");
+    const pageLinks = document.getElementById("pageLinks");
+    const darkToggle = document.getElementById("darkToggle");
+    const loginTab = document.getElementById("loginTab");
+    const signupTab = document.getElementById("signupTab");
+    const authTabs = document.getElementById("authTabs");
+    const forgotPassword = document.getElementById("forgotPassword");
+
+    // Dark mode toggle
+    darkToggle.addEventListener("click", () => {
+      document.body.classList.toggle("dark");
+      darkToggle.textContent = document.body.classList.contains("dark") ? "☀️" : "🌙";
+    });
+
+    // Open/close overlay
+    userAvatar.addEventListener("click", () => {
+      userOverlay.classList.add("active");
+      backdrop.classList.add("active");
+    });
+
+
+
+
+    loginTab.addEventListener("click", () => {
+      loginTab.classList.add("active");
+      signupTab.classList.remove("active");
+
+      loginForm.classList.remove("hidden");
+      signupForm.classList.add("hidden");
+    });
+
+    signupTab.addEventListener("click", () => {
+      signupTab.classList.add("active");
+      loginTab.classList.remove("active");
+
+      signupForm.classList.remove("hidden");
+      loginForm.classList.add("hidden");
+    });
+
+
+
+    // Login
+    loginForm.addEventListener("submit", e => {
+      e.preventDefault();
+      const email = document.getElementById("loginEmail").value;
+      const password = document.getElementById("loginPassword").value;
+      auth.signInWithEmailAndPassword(email, password)
+        .then(() => loginForm.reset())
+        .catch(err => alert(err.message));
+    });
+
+    // Signup
+    signupForm.addEventListener("submit", e => {
+      e.preventDefault();
+      const name = document.getElementById("signupName").value;
+      const email = document.getElementById("signupEmail").value;
+      const password = document.getElementById("signupPassword").value;
+      const confirm = document.getElementById("signupConfirm").value;
+
+      if (password !== confirm) {
+        alert("Passwords do not match!");
+        return;
+      }
+
+      auth.createUserWithEmailAndPassword(email, password)
+        .then(cred => cred.user.updateProfile({ displayName: name }))
+        .then(() => signupForm.reset())
+        .catch(err => alert(err.message));
+    });
+
+    // Logout
+    logoutBtn.addEventListener("click", () => auth.signOut());
+    auth.onAuthStateChanged(user => {
+      if (user) {
+        const name = user.displayName || user.email;
+        const firstLetter = name.charAt(0).toUpperCase();
+
+        // Header toggle
+        document.getElementById("userIconImg").classList.add("hidden");
+        const avatar = document.getElementById("userAvatar");
+        avatar.classList.remove("hidden");
+        avatar.textContent = firstLetter;
+
+        // Overlay toggle
+        document.getElementById("overlayIconImg").classList.add("hidden");
+        const overlayAvatar = document.getElementById("overlayAvatar");
+        overlayAvatar.classList.remove("hidden");
+        overlayAvatar.textContent = firstLetter;
+
+        overlayName.textContent = "Hi " + name.toUpperCase();
+        overlayName.classList.remove("hidden");
+
+        loginForm.classList.add("hidden");
+        signupForm.classList.add("hidden");
+        authTabs.classList.add("hidden");
+        logoutBtn.classList.add("show");
+
+        // ✅ Remove lock when logged in
+        document.querySelectorAll(".protected").forEach(el => {
+          el.classList.remove("locked");
+        });
+
+      } else {
+        // Header toggle
+        document.getElementById("userIconImg").classList.remove("hidden");
+        document.getElementById("userAvatar").classList.add("hidden");
+
+        // Overlay toggle
+        document.getElementById("overlayIconImg").classList.remove("hidden");
+        document.getElementById("overlayAvatar").classList.add("hidden");
+
+        // 👇 Reset name back to default
+        overlayName.textContent = "Hi USER";
+        overlayName.classList.remove("hidden"); // default text dikhna chahiye
+
+        loginForm.classList.remove("hidden");
+        signupForm.classList.add("hidden");
+        authTabs.classList.remove("hidden");
+        logoutBtn.classList.remove("show");
+
+        loginTab.classList.add("active");
+        signupTab.classList.remove("active");
+
+        // ✅ Add lock when logged out
+        document.querySelectorAll(".protected").forEach(el => {
+          el.classList.add("locked");
+        });
+      }
+    });
+
+
+
+    // Forgot password
+    forgotPassword.addEventListener("click", e => {
+      e.preventDefault();
+      const email = document.getElementById("loginEmail").value;
+      if (!email) {
+        alert("Please enter your email first!");
+        return;
+      }
+      auth.sendPasswordResetEmail(email)
+        .then(() => alert("Password reset link sent to " + email))
+        .catch(err => alert(err.message));
+    });
+    
+
+    document.getElementById("userIconImg").addEventListener("click", openOverlay);
+    document.getElementById("userAvatar").addEventListener("click", openOverlay);
+
+    // Sirf backdrop par click hone par hi band karo
+    // backdrop click = overlay band
+    backdrop.addEventListener("click", (e) => {
+      // sirf backdrop par click hua tab hi close hoga
+      if (e.target.id === "backdrop") {
+        userOverlay.classList.remove("active");
+        backdrop.classList.remove("active");
+      }
+    });
+    userOverlay.addEventListener("click", (e) => {
+      e.stopPropagation(); // ✅ andar ke clicks backdrop tak nahi jayenge
+    });
+
+    // overlay open/close (agar already nahi hai to)
+    function openOverlay() { document.getElementById('userOverlay').classList.add('active'); document.getElementById('backdrop').classList.add('active'); }
+    function closeOverlay() { document.getElementById('userOverlay').classList.remove('active'); document.getElementById('backdrop').classList.remove('active'); }
+
+    document.getElementById('userIconImg')?.addEventListener('click', openOverlay);
+    document.getElementById('backdrop')?.addEventListener('click', closeOverlay);
+
+    // demo clicks for effective/animation
+    document.getElementById('optEffective')?.addEventListener('click', function () { window.location.href = 'tips.html'; }); // ya alert/show modal
+    document.getElementById('optAnimation')?.addEventListener('click', function () { alert('Animation demo'); });
+
+  document.querySelectorAll(".protected").forEach(link => {
+  link.addEventListener("click", function (e) {
+    if (!auth.currentUser) {
+      e.preventDefault();
+      e.stopPropagation();
+      alert("⚠️ Please login first to access this page!");
+      openOverlay();
+    }
+    // Agar logged in hai → normal navigation chalega
+  });
+});
+
+
+
+
+
+
+
+
+
+  </script>
+</body>
+
+</html>
